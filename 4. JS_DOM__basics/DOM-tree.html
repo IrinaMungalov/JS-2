@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+    <style>
+        .selected {
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <label>
+        I AGREEN WITH CONDITIONS!!! <input type="checkbox" onclick="check(event)">
+    </label>
+
+    <script>
+        function check( e ) {
+            
+            let input = e.target
+            input.parentElement.className = "selected"
+
+            console.log( e.target.parentElement.childNodes )  // ----> element SOURCE OF CLICK
+            
+            e.target.parentElement.firstChild.textContent = "I AGREED!"
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
