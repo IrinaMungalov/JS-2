@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Chat Window</title>
+    <style>
+        #chat {
+            background-color: #333;
+            padding: 10px;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+        }
+        #chat:not(.open) {
+            bottom: -190px;
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <div id="chat">
+        <button class="toggler">^</button>
+        <form action="">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <br>
+            <button>SEND</button>
+        </form>
+
+    </div>
+
+    <script>
+        window.onload = function () {
+            document
+                .getElementById('chat')
+                .addEventListener('click', toggleChat)
+
+            restoreChatState()
+        }
+
+        function toggleChat(e) {
+            // HW3: add toggling
+            // "^" <-> "x"
+            if(e.target.className == "toggler") {
+                let chatRoom = e.target.parentElement
+                chatRoom.classList.toggle('open')
+
+                let togglerElement = chatRoom.querySelector('.toggler')
+                togglerElement.textContent = togglerElement.textContent == "^" ? "x" : "^"
+
+                saveChatState(chatRoom.classList.contains('open'))
+            }
+        }
+
+        // HW4: restoreChatState()
+        function restoreChatState() {
+            let saveState = localStorage.getItem("chat_state")
+            
+            if (saveState) {
+                let chatRoom = document.getElementById('chat')
+                chatRoom.classList.toggle('open', saveState == 'true')
+            }
+        }
+
+        function saveChatState(state) {
+            localStorage.setItem("chat_state", state)
+        }        
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>REMEMBER ME</title>
+</head>
+<body>
+    
+    <h1 id="title"></h1>
+
+    <script>
+        function load() {
+            let views = +localStorage.getItem("views")
+            let title = document.getElementById("title")
+            console.log(views)
+            if(views == null) {
+                views = 0
+                title.innerText = "Hi, good to see you for the first time!"
+            } else if(views <= 10) {
+                title.innerText = "Hi, black friday SaLES -50%!!!"
+            }
+            views += 1
+            localStorage.setItem("views", views)
+        }
+
+        document.body.onload = load
+    </script>
+</body>
+</html>
