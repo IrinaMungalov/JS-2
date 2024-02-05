@@ -23,9 +23,13 @@ const loadFormData = (e) => {
     // HW2: find the name "case insesitive"
     let name = input.value.toLowerCase()
     
+    // console.log( "Lowercased name:", name )
+
     let foundKey = Object.keys(localStorage).find( 
-        key => key.toLowerCase().startsWith("formData-") && key.toLowerCase().endsWith(name)
+        key => key.toLowerCase().startsWith("formdata-") && key.toLowerCase().endsWith(name)
     )
+
+    // console.log( "Found key:", foundKey )
 
     if (foundKey && name.length > 0) {
         let data = JSON.parse ( localStorage.getItem(foundKey) )        
@@ -37,7 +41,9 @@ const loadFormData = (e) => {
     } else {
         // HW1: clear every input
         document.querySelectorAll("input").forEach(input => {
-            input.value = ""
+            if (input.name && input.name !== "name") {
+                input.value = ""
+            }
         } )    
     }
 }
