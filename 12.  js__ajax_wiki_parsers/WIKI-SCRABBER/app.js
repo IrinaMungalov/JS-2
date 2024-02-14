@@ -53,8 +53,8 @@ const filterProgrammingLanguages = (e) => {
                 // add event listener on result links, capture the event
                 dropdownLink.addEventListener('click', (event) => {
                     event.preventDefault() //  don't let the default effect happen
-                    dropdownUl.classList.remove('show')
-                    clickLink(l.url, results) // hide the dropdown list after click
+                    dropdownUl.classList.remove('show') // hide the dropdown list after click
+                    clickLink(l.url, results) 
                 })
 
                 dropdownItem.appendChild(dropdownLink)
