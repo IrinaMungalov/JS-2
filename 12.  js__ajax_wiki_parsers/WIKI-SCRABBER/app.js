@@ -23,18 +23,18 @@ const getProgrammingLanguagesList = () => {
 
 const filterProgrammingLanguages = (e) => {
     let input = e.target
-    let kw = input.value    
+    let kw = input.value
     let results = document.getElementById('resultsDiv')
     results.innerHTML = ''
 
-    if(kw.length >=2) {   
+    if (kw.length >= 2) {
         let dropdownUl = document.createElement('ul')
         dropdownUl.className = "dropdown-menu show"
         
         languages
-            .filter ( l => {
-                return l.name.toLowerCase().startsWith( kw.toLowerCase() )
-            }).forEach( l => {
+            .filter(l => 
+                l.name.toLowerCase().startsWith( kw.toLowerCase() ) )
+            .forEach(l => {
 
                 /* dropdownUl.appendChild(document.createElement('li'))
                 dropdownUl.lastElementChild.appendChild(document.createElement('a'))
@@ -48,46 +48,53 @@ const filterProgrammingLanguages = (e) => {
 
                 dropdownLink.innerHTML = l.name
                 dropdownLink.href = l.url
-                dropdownLink.className = "dropdown-item"                
+                dropdownLink.className = "dropdown-item"               
 
                 // add event listener on result links, capture the event
                 dropdownLink.addEventListener('click', (event) => {
-                    event.preventDefault() //  don't let the default effect happen                    
-                    dropdownUl.classList.remove('show') // hide the dropdown list after click
+                    event.preventDefault() //  don't let the default effect happen
+                    dropdownUl.classList.remove('show')
+                    clickLink(l.url, results) // hide the dropdown list after click
+                })
 
-                    // send another AJAX request on the link's address
-                    let xhr = new XMLHttpRequest()
-                    xhr.open ('GET', dropdownLink.href )
-                    //  load / parse the doc
-                    xhr.onload = () => {
-                        let response = xhr.responseText
-                        let parser = new DOMParser()
-                        let doc = parser.parseFromString(response, "text/html")                
-                        //  copy the first few paragraphs
-                        let paragraphs = doc.querySelectorAll('p')
-                        let info = Array.from(paragraphs)
-                                        .slice(0, 3)
-                                        .map(p => {
-                                                p.textContent
-                                        })
-                                        .join('<br>')
-                        
-                   //  show it in a div below
-                   let div = document.createElement('div')
-                   div.innerHTML = info
-                   results.appendChild(div)
-                }
-                xhr.send()                
+                dropdownItem.appendChild(dropdownLink)
+                dropdownUl.appendChild(dropdownItem)
             })
 
-            dropdownItem.appendChild(dropdownLink)
-            dropdownUl.appendChild(dropdownItem)
-        })
-
-        results.appendChild(dropdownUl)
+            results.appendChild(dropdownUl)
     }
-    
 }
+
+const clickLink = (url, results) => {
+// send another AJAX request on the link's address
+    let xhr = new XMLHttpRequest()
+    xhr.open('GET', url)
+//  load / parse the doc
+    xhr.onload = () => {
+        let response = xhr.responseText
+        let parser = new DOMParser()
+        let doc = parser.parseFromString(response, "text/html")               
+//  copy the first few paragraphs
+        let paragraphs = doc.querySelectorAll('p')
+        let info = Array.from(paragraphs)
+            .slice(0, 3)
+            .map(p => p.textContent)
+            .join('<br>')                        
+//  show it in a div below
+        let div = document.createElement('div')
+        div.innerHTML = info
+        results.innerHTML = ''
+        results.appendChild(div)
+    }
+
+    xhr.send()
+
+}
+              
+       
+    
+    
+
 
 
 // HW1:
